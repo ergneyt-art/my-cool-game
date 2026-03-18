@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MyCoolGame
 {
-    public static class Menu
+    public static class Menu // add commets
     {
         public static void ShowMainMenu()
         {
