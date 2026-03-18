@@ -1,0 +1,90 @@
+[
+  {
+    "Name": "Greetings",
+    "Category": "MainMenu",
+    "Translations": {
+      "RU": "",
+      "EN": ""
+    }
+  },
+  {
+    "Name": "StartGame",
+    "Category": "MainMenu",
+    "Translations": {
+      "RU": "",
+      "EN": ""
+    }
+  },
+  {
+    "Name": "LoadGame",
+    "Category": "MainMenu",
+    "Translations": {
+      "RU": "",
+      "EN": ""
+    }
+  },
+  {
+    "Name": "Settings",
+    "Category": "MainMenu",
+    "Translations": {
+      "RU": "",
+      "EN": ""
+    }
+  },
+  {
+    "Name": "Exit",
+    "Category": "MainMenu",
+    "Translations": {
+      "RU": "",
+      "EN": ""
+    }
+  },
+  {
+    "Name": "AddCharacter",
+    "Category": "CharacterCreation",
+    "Translations": {
+      "RU": "",
+      "EN": ""
+    }
+  },
+  {
+    "Name": "EnterName",
+    "Category": "CharacterCreation",
+    "Translations": {
+      "RU": "",
+      "EN": ""
+    }
+  },
+  {
+    "Name": "ChooseClass",
+    "Category": "CharacterCreation",
+    "Translations": {
+      "RU": "",
+      "EN": ""
+    }
+  },
+  {
+    "Name": "Language",
+    "Category": "Settings",
+    "Translations": {
+      "RU": "",
+      "EN": ""
+    }
+  },
+  {
+    "Name": "SelectLanguage",
+    "Category": "Settings",
+    "Translations": {
+      "RU": "",
+      "EN": ""
+    }
+  },
+  {
+    "Name": "ErrorInvalidOpinion",
+    "Category": "Errors",
+    "Translations": {
+      "RU": "",
+      "EN": ""
+    }
+  }
+]
