@@ -9,7 +9,7 @@ namespace MyCoolGame
 {
     public static class Menu // add commets
     {
-        public static string Lang { get; set; } = "EN";
+        public static string Lang { get; set; } = "RU";
         public static Localizable Localizable { get; set; } = new Localizable();
 
         public static void ShowMainMenu()
