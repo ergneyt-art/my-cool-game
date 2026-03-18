@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyCoolGame")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ae34d4a9d0097f09afa9858cb7a9d842be40765")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8c785da4d9891faa7f536458c6d023c494548f56")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyCoolGame")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyCoolGame")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
