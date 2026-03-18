@@ -3,88 +3,104 @@
     "Name": "Greetings",
     "Category": "MainMenu",
     "Translations": {
-      "RU": "",
-      "EN": ""
+      "RU": "Добро пожаловать в мою клевую игру!",
+      "EN": "Wellcome to my cool game!"
     }
   },
   {
     "Name": "StartGame",
     "Category": "MainMenu",
     "Translations": {
-      "RU": "",
-      "EN": ""
+      "RU": "Начать новую игру",
+      "EN": "Start new game"
     }
   },
   {
     "Name": "LoadGame",
     "Category": "MainMenu",
     "Translations": {
-      "RU": "",
-      "EN": ""
+      "RU": "Загрузить игру",
+      "EN": "Load game"
     }
   },
   {
     "Name": "Settings",
     "Category": "MainMenu",
     "Translations": {
-      "RU": "",
-      "EN": ""
+      "RU": "Настройки",
+      "EN": "Settings"
     }
   },
   {
     "Name": "Exit",
     "Category": "MainMenu",
     "Translations": {
-      "RU": "",
-      "EN": ""
+      "RU": "Выход",
+      "EN": "Exit"
     }
   },
   {
     "Name": "AddCharacter",
     "Category": "CharacterCreation",
     "Translations": {
-      "RU": "",
-      "EN": ""
+      "RU": "Добавить персонажа",
+      "EN": "Add character"
     }
   },
   {
     "Name": "EnterName",
     "Category": "CharacterCreation",
     "Translations": {
-      "RU": "",
-      "EN": ""
+      "RU": "Введите имя: ",
+      "EN": "Enter name: "
+    }
+  },
+  {
+    "Name": "ChooseGender",
+    "Category": "CharacterCreation",
+    "Translations": {
+      "RU": "Выберете пол персонажа",
+      "EN": "Choose gender of character"
+    }
+  },
+  {
+    "Name": "Greetings",
+    "Category": "CharacterCreation",
+    "Translations": {
+      "RU": "Добро пожаловать в меню создания персонажей",
+      "EN": "Wellcome to create characters menu"
     }
   },
   {
     "Name": "ChooseClass",
     "Category": "CharacterCreation",
     "Translations": {
-      "RU": "",
-      "EN": ""
+      "RU": "Выберете класс персонажа",
+      "EN": "Choose class of character"
     }
   },
   {
     "Name": "Language",
     "Category": "Settings",
     "Translations": {
-      "RU": "",
-      "EN": ""
+      "RU": "Русский",
+      "EN": "Enlish"
     }
   },
   {
     "Name": "SelectLanguage",
     "Category": "Settings",
     "Translations": {
-      "RU": "",
-      "EN": ""
+      "RU": "Выберете язык",
+      "EN": "Choose language"
     }
   },
   {
     "Name": "ErrorInvalidOpinion",
     "Category": "Errors",
     "Translations": {
-      "RU": "",
-      "EN": ""
+      "RU": "Выбрано некоррекнтое действие",
+      "EN": "This is incorrect opinion"
     }
   }
 ]

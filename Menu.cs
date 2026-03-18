@@ -14,11 +14,11 @@ namespace MyCoolGame
 
         public static void ShowMainMenu()
         {
-            Console.WriteLine(Localizable.GetTextByName("Greetings", Lang));
-            Console.WriteLine($"1. {Localizable.GetTextByName("StartGame", Lang)}");
-            Console.WriteLine($"2. {Localizable.GetTextByName("LoadGame", Lang)}");
-            Console.WriteLine($"3. {Localizable.GetTextByName("Settings", Lang)}");
-            Console.WriteLine($"4. {Localizable.GetTextByName("Exit", Lang)}");
+            Console.WriteLine(Localizable.GetTextByName("Greetings", "MainMenu", Lang));
+            Console.WriteLine($"1. {Localizable.GetTextByName("StartGame", "MainMenu", Lang)}");
+            Console.WriteLine($"2. {Localizable.GetTextByName("LoadGame", "MainMenu", Lang)}");
+            Console.WriteLine($"3. {Localizable.GetTextByName("Settings", "MainMenu", Lang)}");
+            Console.WriteLine($"4. {Localizable.GetTextByName("Exit", "MainMenu", Lang)}");
             var pressedKey = Console.ReadKey().Key;
             switch (pressedKey) 
             {
@@ -117,7 +117,17 @@ public class Localizable
         }
         
         throw new NotImplementedException();
+    }
 
+    public string GetTextByName(string name, string category, string lang)
+    {
+        var localizableString = this.texts.Where(e => e.Name == name && e.Category == category).FirstOrDefault();
+        if (localizableString != null)
+        {
+            return localizableString.Translations[lang];
+        }
+
+        throw new NotImplementedException();
     }
 
     public List<LocalizableText> GetTextByCategory(string category)
