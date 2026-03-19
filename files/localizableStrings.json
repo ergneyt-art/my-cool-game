@@ -80,11 +80,43 @@
     }
   },
   {
-    "Name": "Language",
-    "Category": "Settings",
+    "Name": "Russian",
+    "Category": "Language",
     "Translations": {
       "RU": "Русский",
-      "EN": "Enlish"
+      "EN": "Russian"
+    }
+  },
+  {
+    "Name": "English",
+    "Category": "Language",
+    "Translations": {
+      "RU": "Английский",
+      "EN": "English"
+    }
+  },
+  {
+    "Name": "Easy",
+    "Category": "DifficultLevel",
+    "Translations": {
+      "RU": "Просто",
+      "EN": "Easy"
+    }
+  },
+  {
+    "Name": "Normal",
+    "Category": "DifficultLevel",
+    "Translations": {
+      "RU": "Стандартный",
+      "EN": "Normal"
+    }
+  },
+  {
+    "Name": "Hard",
+    "Category": "DifficultLevel",
+    "Translations": {
+      "RU": "Сложный",
+      "EN": "Hard"
     }
   },
   {

@@ -1,3 +1,4 @@
 ﻿using MyCoolGame;
 
-Menu.ShowMainMenu();
+var gameEngine = new GameEngine();
+gameEngine.Run();

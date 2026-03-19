@@ -9,6 +9,7 @@ namespace MyCoolGame
 {
     public static class Menu // add commets
     {
+        /*
         public static string Lang { get; set; } = "RU";
         public static Localizable Localizable { get; set; } = new Localizable();
 
@@ -39,8 +40,10 @@ namespace MyCoolGame
                     ShowMainMenu();
                     break;
             }
+            
 
         }
+        */
 
         public static void StartNewGame()
         {
