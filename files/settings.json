@@ -1,14 +1,5 @@
 {
-  {
-    "name": "Language",
-    "value": "English"
-  },
-  {
-    "name": "MaxPartyMembers",
-    "value": 4
-  },
-  {
-    "name": "DifficultLevel",
-    "value": "Normal"
-  }
+  "Lang": "EN",
+  "MaxPartyMembers": 4,
+  "DifficultLevel": "Normal"
 }

@@ -10,7 +10,7 @@ namespace MyCoolGame
         public string Name { get; set; }
         public string Category { get; set; }
 
-        public Dictionary<string, string> Translations = new Dictionary<string, string>();
+        public Dictionary<string, string> Translations { get; set; }
     }
 
     public static class Localizable

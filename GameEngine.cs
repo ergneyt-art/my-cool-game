@@ -136,10 +136,4 @@ namespace MyCoolGame
 
         }
     }
-
-    public class Setting
-    {
-        public string name;
-        public object value;
-    }
 }
