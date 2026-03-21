@@ -81,7 +81,7 @@
   },
   {
     "Name": "Russian",
-    "Category": "Language",
+    "Category": "Lang",
     "Translations": {
       "RU": "Русский",
       "EN": "Russian"
@@ -89,7 +89,7 @@
   },
   {
     "Name": "English",
-    "Category": "Language",
+    "Category": "Lang",
     "Translations": {
       "RU": "Английский",
       "EN": "English"
@@ -133,6 +133,62 @@
     "Translations": {
       "RU": "Выбрано некоррекнтое действие",
       "EN": "This is incorrect opinion"
+    }
+  },
+  {
+    "Name": "SettingsTitle",
+    "Category": "Settings",
+    "Translations": {
+      "RU": "Меню настроек",
+      "EN": "Settings menu"
+    }
+  },
+  {
+    "Name": "Lang",
+    "Category": "Settings",
+    "Translations": {
+      "RU": "Язык",
+      "EN": "Language"
+    }
+  },
+  {
+    "Name": "MaxPartyMembers",
+    "Category": "Settings",
+    "Translations": {
+      "RU": "Максимальная численность отряда",
+      "EN": "Maximum squad size"
+    }
+  },
+  {
+    "Name": "DifficultLevel",
+    "Category": "Settings",
+    "Translations": {
+      "RU": "Сложность",
+      "EN": "Difficulty"
+    }
+  },
+  {
+    "Name": "Back",
+    "Category": "Settings",
+    "Translations": {
+      "RU": "Назад",
+      "EN": "Back"
+    }
+  },
+  {
+    "Name": "ChooseSetting",
+    "Category": "Settings",
+    "Translations": {
+      "RU": "Выберете настройку которую хотите изменить",
+      "EN": "Choose setting for changing"
+    }
+  },
+  {
+    "Name": "ChooseSettingValue",
+    "Category": "Settings",
+    "Translations": {
+      "RU": "Укажите значение настройки",
+      "EN": "Choose setting value"
     }
   }
 ]
