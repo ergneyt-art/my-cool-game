@@ -14,6 +14,7 @@ namespace MyCoolGame
         private readonly string LocalizableTextsFilePath = @$"{AppContext.BaseDirectory}files\localizableStrings.json";
         private List<BaseCharacter> party = new List<BaseCharacter>();
         private BaseCharacter creatingCharacterInfo = new BaseCharacter();
+        private int CurrentCharacterIndex = 0;
 
 
         public void Run()
@@ -52,7 +53,11 @@ namespace MyCoolGame
 
         public void StartNewGameMenu()
         {
-            Console.WriteLine("Starting new game...");
+            Console.WriteLine("Your party is:");
+            foreach (var partyMember in party)
+            {
+                Console.WriteLine(partyMember.GetBaseInfo());
+            }
             Console.WriteLine("1. Create new character");
             Console.WriteLine("2. Change character");
             Console.WriteLine("3. Start Game");
@@ -62,11 +67,10 @@ namespace MyCoolGame
             switch (pressedKey) 
             {
                 case ConsoleKey.D1:
-                    CreateCharacterMenu();
+                    CharacterMenu(CharacterMenuMode.NewCharacter);
                     break;
                 case ConsoleKey.D2:
                     ChangeCharacterMenu();
-                    Console.WriteLine("Changing character...");
                     break;
                 case ConsoleKey.D3:
                     StartGame();
@@ -82,9 +86,9 @@ namespace MyCoolGame
             }
         }
 
-        public void CreateCharacterMenu()
+        public void CharacterMenu(CharacterMenuMode mode)
         {
-            if (party.Count >= MaxCharacterCount)
+            if (party.Count >= MaxCharacterCount && mode == CharacterMenuMode.NewCharacter)
             {
                 Console.WriteLine("You can't create more characters");
                 StartNewGameMenu();
@@ -101,30 +105,30 @@ namespace MyCoolGame
 
             ConsoleKey pressedKey = ConsoleKey.Escape;
 
-            while (pressedKey != ConsoleKey.D5 || pressedKey != ConsoleKey.D6)
+            pressedKey = Console.ReadKey().Key;
+            switch (pressedKey)
             {
-                pressedKey = Console.ReadKey().Key;
-                switch (pressedKey)
-                {
-                    case ConsoleKey.D1:
-                        creatingCharacterInfo.Class = ChooseClass();
-                        CreateCharacterMenu();
-                        break;
-                    case ConsoleKey.D2:
-                        creatingCharacterInfo.Race = ChooseRace();
-                        CreateCharacterMenu();
-                        break;
-                    case ConsoleKey.D3:
-                        creatingCharacterInfo.Gender = ChooseGender();
-                        CreateCharacterMenu();
-                        break;
-                    case ConsoleKey.D4:
-                        creatingCharacterInfo.Name = ChooseName();
-                        CreateCharacterMenu();
-                        break;
-                    case ConsoleKey.D5:
-                        var character = ValidateCharacterInfo();
-                        if (character != null)
+                case ConsoleKey.D1:
+                    creatingCharacterInfo.Class = ChooseClass();
+                    CharacterMenu(mode);
+                    break;
+                case ConsoleKey.D2:
+                    creatingCharacterInfo.Race = ChooseRace();
+                    CharacterMenu(mode);
+                    break;
+                case ConsoleKey.D3:
+                    creatingCharacterInfo.Gender = ChooseGender();
+                    CharacterMenu(mode);
+                    break;
+                case ConsoleKey.D4:
+                    creatingCharacterInfo.Name = ChooseName();
+                    CharacterMenu(mode);
+                    break;
+                case ConsoleKey.D5:
+                    var character = ValidateCharacterInfo();
+                    if (character != null)
+                    {
+                        if (mode == CharacterMenuMode.NewCharacter)
                         {
                             party.Add(character);
                             this.creatingCharacterInfo = new BaseCharacter();
@@ -136,21 +140,80 @@ namespace MyCoolGame
                             }
                             StartNewGameMenu();
                         }
+                        else if (mode == CharacterMenuMode.ChangeCharacter)
+                        {
+                            party[CurrentCharacterIndex] = character;
+                            this.creatingCharacterInfo = new BaseCharacter();
+                            Console.WriteLine($"Character {character.Name} changed");
+                            Console.WriteLine($"Your party is:");
+                            foreach (var partyMember in party)
+                            {
+                                Console.WriteLine(partyMember.GetBaseInfo());
+                            }
+                            StartNewGameMenu();
+                        }
                         else
                         {
-                            Console.WriteLine("Character info is not valid");
-                            CreateCharacterMenu();
+                            Console.WriteLine("Invalid character menu mode");
+                            StartNewGameMenu();
                         }
-                        break;
-                    case ConsoleKey.D6:
-                        this.creatingCharacterInfo = new BaseCharacter();
-                        StartNewGameMenu();
-                        break;
-                    default:
-                        Console.WriteLine("Invalid option");
-                        CreateCharacterMenu();
-                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Character info is not valid");
+                        CharacterMenu(mode);
+                    }
+                    break;
+                case ConsoleKey.D6:
+                    this.creatingCharacterInfo = new BaseCharacter();
+                    StartNewGameMenu();
+                    break;
+                default:
+                    Console.WriteLine("Invalid option");
+                    CharacterMenu(mode);
+                    break;
+            }
+        }
+
+        public void ChangeCharacterMenu()
+        {
+            if (party.Count == 0)
+            {
+                Console.WriteLine("You don't have characters in your party");
+                StartNewGameMenu();
+                return;
+            }
+    
+            Console.WriteLine("Choose character to change:");
+            for (int i = 0; i < party.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {party[i].Name}");
+            }
+            Console.WriteLine($"{party.Count + 1}. Back");
+            var pressedKey = Console.ReadKey().Key;
+            if (pressedKey == ConsoleKey.D1 || pressedKey == ConsoleKey.D2 || pressedKey == ConsoleKey.D3 || pressedKey == ConsoleKey.D4)
+            {
+                int characterIndex = (int)pressedKey - (int)ConsoleKey.D1;
+                if (characterIndex >= 0 && characterIndex < party.Count)
+                {
+                    this.creatingCharacterInfo = party[characterIndex];
+                    this.CurrentCharacterIndex = characterIndex;
+                    CharacterMenu(CharacterMenuMode.ChangeCharacter);
                 }
+                else
+                {
+                    Console.WriteLine("Invalid option");
+                    ChangeCharacterMenu();
+                }
+            }
+            else if (pressedKey == ConsoleKey.D5)
+            {
+                StartNewGameMenu();
+            }
+            else
+            {
+                Console.WriteLine("Invalid option");
+                ChangeCharacterMenu();
             }
         }
 
@@ -344,124 +407,11 @@ namespace MyCoolGame
             Console.WriteLine("Exiting game...");
             Environment.Exit(0);
         }
+    }
 
-        /*
-        public void ShowMainMenu()
-        {
-            var lang = settings["Lang"].ToString();
-            Console.WriteLine($"{texts["MainMenu"]["Greetings"][lang]}");
-            Console.WriteLine("1. " + texts["MainMenu"]["StartGame"][lang]);
-            Console.WriteLine("2. " + texts["MainMenu"]["LoadGame"][lang]);
-            Console.WriteLine("3. " + texts["MainMenu"]["Settings"][lang]);
-            Console.WriteLine("4. " + texts["MainMenu"]["Exit"][lang]);
-            var pressedKey = Console.ReadKey().Key;
-            switch (pressedKey)
-            {
-                case ConsoleKey.D1:
-                    StartNewGame();
-                    break;
-                case ConsoleKey.D2:
-                    LoadGame();
-                    break;
-                case ConsoleKey.D3:
-                    ShowSettings();
-                    break;
-                case ConsoleKey.D4:
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine(texts["Errors"]["ErrorInvalidOpinion"][lang]);
-                    ShowMainMenu();
-                    break;
-            }
-        }
-
-        public void StartNewGame()
-        {
-            Console.WriteLine("Starting new game...");
-        }
-
-        public void LoadGame()
-        {
-            Console.WriteLine("Loading game...");
-        }
-
-        public void ShowSettings()
-        {
-            var lang = settings["Lang"].ToString();
-            Console.WriteLine(texts["Settings"]["SettingsTitle"][lang]);
-            var counter = 1;
-            var settingDict = new Dictionary<int, string>();
-            foreach (var setting in settings)
-            {
-                var settingName = texts["Settings"][setting.Key][lang];
-                var settingValue = setting.Value.ToString();
-                
-                if (texts["Settings"].ContainsKey(settingValue))
-                {
-                    settingValue = texts["Settings"][settingValue][lang];
-                }
-                Console.WriteLine($"{counter}. {settingName}: {settingValue}");
-                settingDict.Add(counter, settingName);
-                counter++;
-            }
-            Console.WriteLine($"{counter}. " + texts["Settings"]["Back"][lang]);
-            Console.WriteLine(texts["Settings"]["ChooseSetting"][lang]);
-            if (int.TryParse(Console.ReadLine(), out int enteredValue) && enteredValue > 0 && enteredValue <= counter)
-            {
-                counter = 1;
-                var valueDict = new Dictionary<int, string>();
-                foreach (var settingValue in texts[settingDict[enteredValue]])
-                {
-                    Console.WriteLine($"{counter}. {settingValue.Value[lang]}");
-                    valueDict.Add(counter, settingValue.ToString());
-                    counter++;
-                }
-                Console.WriteLine(texts["Settings"]["ChooseSettingValue"][lang]);
-            }
-            
-        }
-
-
-
-        private void InstallSettings()
-        {
-            Console.WriteLine("Installing settings...");
-            if (File.Exists(SettingsFilePath))
-            {
-                using (StreamReader reader = new StreamReader(SettingsFilePath))
-                {
-                    string json = reader.ReadToEnd();
-                    settings = JsonSerializer.Deserialize<Dictionary<string, object>>(json);
-                }
-                Console.WriteLine("Complited");
-            }
-            else
-            {
-                Console.WriteLine("Settings file not found");
-            }
-            
-        }
-
-        private void InstallLocalizableTexts()
-        {
-            Console.WriteLine("Installing localizable texts...");
-            if (File.Exists(LocalizableTextsFilePath))
-            {
-                using (StreamReader reader = new StreamReader(LocalizableTextsFilePath))
-                {
-                    string json = reader.ReadToEnd();
-                    var localizableStrings = JsonSerializer.Deserialize<List<LocalizableText>>(json);
-                    texts = Localizable.GetTexts(localizableStrings);
-                }
-                Console.WriteLine("Complited");
-            }
-            else
-            {
-                Console.WriteLine("Localizable texts file not found");
-            }
-
-        }
-        */
+    public enum CharacterMenuMode
+    {
+        NewCharacter = 1,
+        ChangeCharacter = 2,
     }
 }
