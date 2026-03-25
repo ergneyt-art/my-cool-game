@@ -15,6 +15,8 @@ namespace MyCoolGame
         private List<BaseCharacter> party = new List<BaseCharacter>();
         private BaseCharacter creatingCharacterInfo = new BaseCharacter();
         private int CurrentCharacterIndex = 0;
+        private Dungeon CurrentDungeon;
+        private DungeonNode CurrentDungeonNode;
 
 
         public void Run()
@@ -219,8 +221,156 @@ namespace MyCoolGame
 
         public void StartGame()
         {
-            Console.WriteLine("Starting game...");
+            var firstDungeon = new Dungeon
+            {
+                Name = "Начальное подземелье",
+                Difficulty = 1,
+                Description = "Здесь начинается ваш путь. Удачи!",
+            };
+
+            var firstNode = new DungeonNode
+            {
+                Name = "Начало пути",
+                Description = "Вы входите в подземелье и видите перед собой два пути. Куда пойдете? ",
+                Dungeon = firstDungeon,
+                IsFinal = true,
+            };
+
+            var secondNode = new DungeonNode
+            {
+                Name = "Левая тропа",
+                Description = "Вы выбрали левую тропу и встретили группу гоблинов. Что будете делать?",
+                Dungeon = firstDungeon,
+                NodeEvent = new Event
+                {
+                    Name = "Бой с гоблинами",
+                    Description = "Вы сражаетесь с гоблинами. Хотите попробовать?",
+                    StrengthCost = 5,
+                    AgilityCost = 3,
+                    SuccessOutcome = "Вы побеждаете гоблинов и получаете 100 опыта и 50 золота.",
+                    FailureOutcome = "Гоблины побеждают вас. Вы теряете 20 здоровья.",
+                    Damage = 20
+                }
+            };
+
+            var thirdNode = new DungeonNode
+            {
+                Name = "Правая тропа",
+                Description = "Вы выбрали правую тропу и встретили старого мудреца. Что будете делать?",
+                Dungeon = firstDungeon,
+                NodeEvent = new Event
+                {
+                    Name = "Встреча с мудрецом",
+                    Description = "Вы встретили старого мудреца, который предлагает вам ответить на три его загадки. Хотите попробовать?",
+                    IntelligentCost = 10,
+                    PerceptionCost = 8,
+                }
+            };
+
+            var fourthNode = new DungeonNode
+            {
+                Name = "Осмотр пещеры",
+                Description = "Вы можете попробовать осмотреть эту перещеру повнимательнее, возможно тут есть что интересное...",
+                Dungeon = firstDungeon,
+                NodeEvent = new Event
+                {
+                    Name = "Осмотр пещеры",
+                    Description = "Вы осматриваете пещеру и находите спрятанный сундук. Хотите открыть его?",
+                    PerceptionCost = 5,
+                    SuccessOutcome = "Вы открываете сундук и находите 200 золота.",
+                    FailureOutcome = "Вы не замечаете ловушку и получаете 15 урона.",
+                    Damage = 15
+                }
+            };
+
+            var bossNode = new DungeonNode
+            {
+                Name = "Босс",
+                Description = "Вы встречаете босса подземелья - огромного тролля. Что будете делать?",
+                Dungeon = firstDungeon,
+                NodeEvent = new Event
+                {
+                    Name = "Бой с троллем",
+                    Description = "Вы сражаетесь с троллем. Хотите попробовать?",
+                    StrengthCost = 15,
+                    AgilityCost = 10,
+                    IntelligentCost = 5,
+                    PerceptionCost = 5,
+                    SuccessOutcome = "Вы побеждаете тролля и получаете 500 опыта и 300 золота.",
+                    FailureOutcome = "Тролль побеждает вас. Вы теряете 50 здоровья.",
+                    Damage = 50
+                },
+                IsFinal = true,
+            };
+
+            firstDungeon.Start = firstNode;
+            firstDungeon.Nodes.Add(firstNode);
+            firstDungeon.Nodes.Add(secondNode);
+            firstDungeon.Nodes.Add(thirdNode);
+            firstDungeon.Nodes.Add(fourthNode);
+
+            firstNode.ConnectedDungeons.Add(secondNode);
+            firstNode.ConnectedDungeons.Add(secondNode);
+            firstNode.ConnectedDungeons.Add(thirdNode);
+
+            secondNode.ConnectedDungeons.Add(firstNode);
+            secondNode.ConnectedDungeons.Add(bossNode);
+
+            thirdNode.ConnectedDungeons.Add(firstNode);
+            thirdNode.ConnectedDungeons.Add(bossNode);
+
+            fourthNode.ConnectedDungeons.Add(firstNode);
+            fourthNode.ConnectedDungeons.Add(bossNode);
+            this.CurrentDungeonNode = firstNode;
+            this.CurrentDungeon = firstDungeon;
+
+            while (true)
+            {
+                Console.WriteLine(CurrentDungeonNode.Description);
+                if (CurrentDungeonNode.NodeEvent != null)
+                {
+                    Console.WriteLine($"Event: {CurrentDungeonNode.NodeEvent.Description}");
+                    CurrentDungeonNode.ShowConnectedDungeons();
+                    var pressedKey = Console.ReadKey().Key;
+                    var x = (int)pressedKey;
+                    switch (pressedKey)
+                    {
+                        case ConsoleKey.D1:
+                            var success = CurrentDungeonNode.TriggerEvent(party[0]);
+                            if (success)
+                            {
+                                Console.WriteLine(CurrentDungeonNode.NodeEvent.SuccessOutcome);
+                            }
+                            else
+                            {
+                                Console.WriteLine(CurrentDungeonNode.NodeEvent.FailureOutcome);
+                            }
+                            break;
+                        case ConsoleKey.D2:
+                            CurrentDungeonNode.ShowConnectedDungeons();
+                            break;
+                        default:
+                            Console.WriteLine("Invalid option");
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("1. Move to another node");
+                    var pressedKey = Console.ReadKey().Key;
+                    switch (pressedKey)
+                    {
+                        case ConsoleKey.D1:
+                            CurrentDungeonNode.ShowConnectedDungeons();
+                            break;
+                        default:
+                            Console.WriteLine("Invalid option");
+                            break;
+                    }
+                }
+            }
         }
+
 
         private BaseCharacter ValidateCharacterInfo()
         {
